@@ -55,14 +55,14 @@ namespace :db do
       s = wpdb[ :staging ]
       puts "db:sync"
       puts stage
-      system "mysqldump -u #{p[:user]} --result-file=/tmp/wpstack-#{random}.sql -h #{p[:host]} -p#{p[:password]} #{p[:name]}"
-      system "mysql -u #{s[:user]} -h #{s[:host]} -p#{s[:password]} #{s[:name]} < /tmp/wpstack-#{random}.sql && rm /tmp/wpstack-#{random}.sql"
+      run "mysqldump -u #{p[:user]} --result-file=/tmp/wpstack-#{random}.sql -h #{p[:host]} -p#{p[:password]} #{p[:name]}"
+      run "mysql -u #{s[:user]} -h #{s[:host]} -p#{s[:password]} #{s[:name]} < /tmp/wpstack-#{random}.sql && rm /tmp/wpstack-#{random}.sql"
       puts "Database synced to staging"
       # memcached.restart
       puts "Memcached flushed"
       # Now to copy files
       find_servers( :roles => :web ).each do |server|
-        system "rsync -avz --delete #{production_deploy_to}/shared/files/ #{server}:#{shared_path}/files/"
+        run "rsync -avz --delete #{production_deploy_to}/shared/files/ #{server}:#{shared_path}/files/"
       end
     end
 	end
