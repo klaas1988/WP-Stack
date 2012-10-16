@@ -62,7 +62,8 @@ namespace :db do
       puts "Memcached flushed"
       # Now to copy files
       find_servers( :roles => :web ).each do |server|
-        run "rsync -avz --delete #{production_deploy_to}/shared/files/ #{server}:#{shared_path}/files/"
+        #run "rsync -avz --delete #{production_deploy_to}/shared/files/ #{server}:#{shared_path}/files/"
+        run "rsync -avz --delete #{production_deploy_to}/shared/files/ #{shared_path}/files/"
       end
     end
 	end
