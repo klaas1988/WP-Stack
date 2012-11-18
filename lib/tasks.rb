@@ -43,6 +43,13 @@ namespace :memcached do
 	end
 end
 
+namespace :parent_dir do
+    desc "Sets owner of all files and folders in public_html to that of the parent folder"
+    task :set_owner do
+        run "shared_path=#{shared_path}; parent_dir=${shared_path%/*}; parent_owner=$(ls -l -d $parent_dir | awk '{print $3}'); parent_group=$(ls -l -d $parent_dir | awk '{print $4}'); chown -R $parent_owner:$parent_group $parent_dir'/'"
+    end
+end
+
 namespace :db do
 	desc "Syncs the staging database (and uploads) from production"
 	task :sync, :roles => :web  do

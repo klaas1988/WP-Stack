@@ -10,6 +10,7 @@ after "deploy:update_code", "shared:make_shared_dir"
 after "deploy:update_code", "shared:make_symlinks"
 after "deploy:update_code", "db:make_config"
 after "deploy", "memcached:update"
+after "deploy", "parent_dir:set_owner"
 
 # Pull in the config file
 loadFile 'config/config.rb'
