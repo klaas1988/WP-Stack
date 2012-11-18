@@ -55,8 +55,8 @@ namespace :db do
       s = wpdb[ :staging ]
       puts "db:sync"
       puts stage
-      run "mysqldump -u #{p[:user]} --result-file=/tmp/wpstack-#{random}.sql -h #{p[:host]} -p#{p[:password]} #{p[:name]}"
-      run "mysql -u #{s[:user]} -h #{s[:host]} -p#{s[:password]} #{s[:name]} < /tmp/wpstack-#{random}.sql && rm /tmp/wpstack-#{random}.sql"
+      run "mysqldump -u #{p[:user]} --result-file=/tmp/wpstack-#{random}.sql -h #{p[:host]} --password='#{p[:password]}' #{p[:name]}"
+      run "mysql -u #{s[:user]} -h #{s[:host]} --password='#{s[:password]}' #{s[:name]} < /tmp/wpstack-#{random}.sql && rm /tmp/wpstack-#{random}.sql"
       puts "Database synced to staging"
       # memcached.restart
       puts "Memcached flushed"
