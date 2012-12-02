@@ -1,6 +1,6 @@
 namespace :shared do
 	task :make_shared_dir do
-		run "if [ ! -d #{shared_path}/files ]; then mkdir #{shared_path}/files; fi"
+		run "if [ ! -d #{shared_path}/files ]; then mkdir -m 755 #{shared_path}/files; fi"
 	end
 	task :make_symlinks do
 		run "if [ ! -h #{release_path}/shared ]; then ln -s #{shared_path}/files/ #{release_path}/shared; fi"
