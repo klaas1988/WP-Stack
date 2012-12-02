@@ -43,6 +43,13 @@ namespace :memcached do
 	end
 end
 
+namespace :uploads_dir do
+    desc "Replaces uploads directory with symlink to shared uploads directory"
+    task :convert_to_symlink do
+        run "if [ ! -L #{release_path}/wp-content/uploads ]; then rm -rf #{release_path}/wp-content/uploads; ln -s #{release_path}/shared/ #{release_path}/wp-content/uploads; fi"
+    end
+end
+
 namespace :parent_dir do
     desc "Sets owner of all files and folders in public_html to that of the parent folder"
     task :set_owner do
