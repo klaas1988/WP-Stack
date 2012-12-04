@@ -51,6 +51,10 @@ namespace :uploads_dir do
 end
 
 namespace :parent_dir do
+    desc "Apache .htaccess file for redirecting to current release directory"
+    task :create_htaccess do
+        run "shared_path=\"#{shared_path}\"; "'parent_dir="${shared_path%/*}";nl=$\'\n\'; printf "<IfModule mod_rewrite.c>${nl}RewriteEngine on${nl}RewriteCond %%{REQUEST_URI} !^/current/.*\$${nl}RewriteRule ^(.*)\$ /current/\$1${nl}</IfModule>${nl}" > "${parent_dir}/.htaccess"'
+    end
     desc "Sets owner of all files and folders in public_html to that of the parent folder"
     task :set_owner do
         run "shared_path=#{shared_path}; parent_dir=${shared_path%/*}; parent_owner=$(ls -l -d $parent_dir | awk '{print $3}'); parent_group=$(ls -l -d $parent_dir | awk '{print $4}'); chown -R $parent_owner:$parent_group $parent_dir'/'"

@@ -11,6 +11,7 @@ after "deploy:update_code", "shared:make_symlinks"
 after "deploy:update_code", "db:make_config"
 after "deploy", "memcached:update"
 after "deploy", "uploads_dir:convert_to_symlink"
+after "deploy", "parent_dir:create_htaccess"
 after "deploy", "parent_dir:set_owner"
 
 # Pull in the config file
