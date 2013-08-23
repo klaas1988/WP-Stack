@@ -14,6 +14,9 @@ set :production_deploy_to, '/srv/www/example.com'
 # The domain name used for your staging environment
 set :staging_domain, 'staging.example.com'
 
+# Security salt used for encrypting user passwords
+set :security_salt, 'put your unique phrase here'
+
 # Database
 # Set the values for host, user, pass, and name for both production and staging.
 set :wpdb do
